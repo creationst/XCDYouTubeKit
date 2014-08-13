@@ -786,7 +786,7 @@
 		C2A3F2DC17F4827800AC1C3B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = XCDYouTubeKit;
 				SKIP_INSTALL = YES;
 			};
@@ -854,7 +854,7 @@
 		C2D0CC5F191283A400DA8CD4 /* Code Coverage */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ONLY_ACTIVE_ARCH = YES;
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_NAME = XCDYouTubeKit;
 				SKIP_INSTALL = YES;
 			};
