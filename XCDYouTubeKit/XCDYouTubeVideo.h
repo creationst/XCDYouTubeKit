@@ -35,6 +35,13 @@ typedef NS_ENUM(NSUInteger, XCDYouTubeVideoQuality) {
 	 *  @deprecated YouTube has removed 1080p mp4 videos.
 	 */
 	XCDYouTubeVideoQualityHD1080 DEPRECATED_MSG_ATTRIBUTE("YouTube has removed 1080p mp4 videos.") = 37,
+	
+	/**
+	 *	Video: 2160 AVC | 15.6 Mbit/s
+	 *	Audio:
+	 *  266 = 21fps | 138 = 15.6fps
+	 */
+	XCDYouTubeVideoQualityUHD = 266,
 };
 
 /**
