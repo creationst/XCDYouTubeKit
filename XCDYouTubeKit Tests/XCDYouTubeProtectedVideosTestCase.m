@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2015 Cédric Luthi. All rights reserved.
 //
 
 #import "XCDYouTubeKitTestCase.h"
@@ -15,6 +15,28 @@
 {
 	__weak XCTestExpectation *expectation = [self expectationWithDescription:@""];
 	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"zKovmts2KSk" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
+	{
+		XCTAssertNil(error);
+		XCTAssertNotNil(video.title);
+		XCTAssertNotNil(video.expirationDate);
+		XCTAssertNotNil(video.smallThumbnailURL);
+		XCTAssertNotNil(video.mediumThumbnailURL);
+		XCTAssertNotNil(video.largeThumbnailURL);
+		XCTAssertTrue(video.streamURLs.count > 0);
+		XCTAssertTrue(video.duration > 0);
+		[video.streamURLs enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSURL *streamURL, BOOL *stop)
+		{
+			XCTAssertTrue([streamURL.query rangeOfString:@"signature="].location != NSNotFound);
+		}];
+		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void) testAgeRestrictedUnratedVideo
+{
+	__weak XCTestExpectation *expectation = [self expectationWithDescription:@""];
+	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"KGZzuVNwJHY" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
 	{
 		XCTAssertNil(error);
 		XCTAssertNotNil(video.title);
@@ -65,7 +87,6 @@
 		XCTAssertNotNil(video.expirationDate);
 		XCTAssertNotNil(video.smallThumbnailURL);
 		XCTAssertNotNil(video.mediumThumbnailURL);
-		XCTAssertNotNil(video.largeThumbnailURL);
 		XCTAssertTrue(video.streamURLs.count > 0);
 		XCTAssertTrue(video.duration > 0);
 		[video.streamURLs enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, NSURL *streamURL, BOOL *stop)
@@ -95,6 +116,30 @@
 			XCTAssertTrue([streamURL.query rangeOfString:@"signature="].location != NSNotFound);
 		}];
 		[expectation fulfill];
+	}];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void) testProtectedVEVOIsPlayable
+{
+	__weak XCTestExpectation *expectation = [self expectationWithDescription:@""];
+	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"tg00YEETFzg" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
+	{
+		XCTAssertNil(error);
+		XCTAssertNotNil(video.title);
+		XCTAssertNotNil(video.expirationDate);
+		XCTAssertNotNil(video.smallThumbnailURL);
+		XCTAssertNotNil(video.mediumThumbnailURL);
+		XCTAssertNotNil(video.largeThumbnailURL);
+		XCTAssertTrue(video.streamURLs.count > 0);
+		XCTAssertTrue(video.duration > 0);
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:video.streamURLs[@(XCDYouTubeVideoQualityHD720)]];
+		request.HTTPMethod = @"HEAD";
+		[NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError)
+		{
+			XCTAssertEqual([(NSHTTPURLResponse *)response statusCode], 200);
+			[expectation fulfill];
+		}];
 	}];
 	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
@@ -195,6 +240,21 @@
 		XCTAssertEqualObjects(error.localizedDescription, @"This video contains content from WMG. It is restricted from playback on certain sites. Watch on YouTube");
 		[expectation fulfill];
 	}];
+	[self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+// Edit testProtectedVideoWithNonAnonymousJavaScriptPlayerFunction.json by replacing `"(function()` with `"(xunction()`
+- (void) testProtectedVideoWithNonAnonymousJavaScriptPlayerFunction_offline
+{
+	__weak XCTestExpectation *expectation = [self expectationWithDescription:@""];
+	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"Pgum6OT_VH8" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
+	 {
+		 XCTAssertNil(video);
+		 XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
+		 XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		 XCTAssertEqualObjects(error.localizedDescription, @"This video contains content from WMG. It is restricted from playback on certain sites. Watch on YouTube");
+		 [expectation fulfill];
+	 }];
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 

@@ -1,5 +1,5 @@
 //
-//  Copyright (c) 2013-2014 Cédric Luthi. All rights reserved.
+//  Copyright (c) 2013-2015 Cédric Luthi. All rights reserved.
 //
 
 #import "XCDYouTubeKitTestCase.h"
@@ -75,6 +75,17 @@
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:5 handler:nil];
+}
+
+- (void) testPresentInView
+{
+	UIView *view = [UIView new];
+	XCDYouTubeVideoPlayerViewController *videoPlayerViewController = [[XCDYouTubeVideoPlayerViewController alloc] initWithVideoIdentifier:@"EdeVaT-zZt4"];
+	XCTAssertNil(videoPlayerViewController.moviePlayer.view.superview);
+	[videoPlayerViewController presentInView:view];
+	XCTAssertEqualObjects(videoPlayerViewController.moviePlayer.view.superview, view);
+	XCTAssertEqual(videoPlayerViewController.moviePlayer.controlStyle, MPMovieControlStyleEmbedded);
+	XCTAssertFalse(videoPlayerViewController.moviePlayer.currentPlaybackRate > 0.0f);
 }
 
 @end
