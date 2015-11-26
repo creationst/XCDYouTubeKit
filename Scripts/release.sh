@@ -21,8 +21,11 @@ VERSION=$1
 git flow release start ${VERSION}
 
 echo "Updating version"
+CURRENT_PROJECT_VERSION=$(xcodebuild -project XCDYouTubeKit.xcodeproj -showBuildSettings | awk '/CURRENT_PROJECT_VERSION/{print $3}')
+CURRENT_PROJECT_VERSION=$(expr ${CURRENT_PROJECT_VERSION} + 1)
 set -v
 sed -i "" "s/DYLIB_CURRENT_VERSION = .*;/DYLIB_CURRENT_VERSION = ${VERSION};/g" "XCDYouTubeKit.xcodeproj/project.pbxproj"
+sed -i "" "s/CURRENT_PROJECT_VERSION = .*;/CURRENT_PROJECT_VERSION = ${CURRENT_PROJECT_VERSION};/g" "XCDYouTubeKit.xcodeproj/project.pbxproj"
 sed -i "" "s/CURRENT_PROJECT_VERSION = .*;/CURRENT_PROJECT_VERSION = ${VERSION};/g" "XCDYouTubeKit Demo/XCDYouTubeKit Demo.xcodeproj/project.pbxproj"
 sed -i "" "s/^\(.*s.version.*=.*\)\".*\"/\1\"${VERSION}\"/" "XCDYouTubeKit.podspec"
 sed -E -i "" "s/~> [0-9\.]+/~> ${VERSION}/g" "README.md"
@@ -42,7 +45,8 @@ update_badges "master" "develop"
 echo "Things remaining to do"
 echo "  * git push with tags (master and develop)"
 echo "  * check that build is passing on travis: https://travis-ci.org/0xced/XCDYouTubeKit/"
+echo "  * pod lib lint --verbose XCDYouTubeKit.podspec"
+echo "  * pod trunk push --verbose XCDYouTubeKit.podspec"
 echo "  * pod spec lint --verbose XCDYouTubeKit.podspec"
-echo "  * pod trunk push XCDYouTubeKit.podspec --verbose"
 echo "  * create a new release on GitHub: https://github.com/0xced/XCDYouTubeKit/releases/new"
 echo "  * close milestone on GitHub if applicable: https://github.com/0xced/XCDYouTubeKit/milestones"
