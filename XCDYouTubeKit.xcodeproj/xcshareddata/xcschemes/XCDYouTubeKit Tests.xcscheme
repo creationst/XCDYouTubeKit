@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0820"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,9 +14,9 @@
             buildForAnalyzing = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C2DD4DA1191FFDE100AF6F85"
-               BuildableName = "XCDYouTubeKit OS X Tests.xctest"
-               BlueprintName = "XCDYouTubeKit OS X Tests"
+               BlueprintIdentifier = "C20F579A18817D5400EDBFB0"
+               BuildableName = "XCDYouTubeKit.xctest"
+               BlueprintName = "XCDYouTubeKit Tests"
                ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -32,9 +32,9 @@
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "C2DD4DA1191FFDE100AF6F85"
-               BuildableName = "XCDYouTubeKit OS X Tests.xctest"
-               BlueprintName = "XCDYouTubeKit OS X Tests"
+               BlueprintIdentifier = "C20F579A18817D5400EDBFB0"
+               BuildableName = "XCDYouTubeKit.xctest"
+               BlueprintName = "XCDYouTubeKit Tests"
                ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
             </BuildableReference>
          </TestableReference>

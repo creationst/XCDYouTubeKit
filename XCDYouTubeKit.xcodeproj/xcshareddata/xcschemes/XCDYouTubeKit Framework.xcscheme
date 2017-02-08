@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0800"
+   LastUpgradeVersion = "0820"
    version = "2.0">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -16,14 +16,14 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C2F0E5721944F10E00D8EBA8"
                BuildableName = "XCDYouTubeKit.framework"
-               BlueprintName = "XCDYouTubeKit iOS Framework"
+               BlueprintName = "XCDYouTubeKit Framework"
                ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
-      buildConfiguration = "Code Coverage"
+      buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "NO">
@@ -33,8 +33,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "C20F579A18817D5400EDBFB0"
-               BuildableName = "XCDYouTubeKit iOS Tests.xctest"
-               BlueprintName = "XCDYouTubeKit iOS Tests"
+               BuildableName = "XCDYouTubeKit.xctest"
+               BlueprintName = "XCDYouTubeKit Tests"
                ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
             </BuildableReference>
          </TestableReference>
@@ -44,7 +44,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2F0E5721944F10E00D8EBA8"
             BuildableName = "XCDYouTubeKit.framework"
-            BlueprintName = "XCDYouTubeKit iOS Framework"
+            BlueprintName = "XCDYouTubeKit Framework"
             ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -74,7 +74,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2F0E5721944F10E00D8EBA8"
             BuildableName = "XCDYouTubeKit.framework"
-            BlueprintName = "XCDYouTubeKit iOS Framework"
+            BlueprintName = "XCDYouTubeKit Framework"
             ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -92,7 +92,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "C2F0E5721944F10E00D8EBA8"
             BuildableName = "XCDYouTubeKit.framework"
-            BlueprintName = "XCDYouTubeKit iOS Framework"
+            BlueprintName = "XCDYouTubeKit Framework"
             ReferencedContainer = "container:XCDYouTubeKit.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
