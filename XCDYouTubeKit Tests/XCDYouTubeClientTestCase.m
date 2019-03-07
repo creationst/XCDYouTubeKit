@@ -118,7 +118,7 @@
 - (void) testLiveVideo
 {
 	__weak XCTestExpectation *expectation = [self expectationWithDescription:@""];
-	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"wv8NRHysoo0" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
+	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"hHW1oY26kxQ" completionHandler:^(XCDYouTubeVideo *video, NSError *error)
 	{
 		XCTAssertNil(error);
 		XCTAssertNotNil(video.title);
