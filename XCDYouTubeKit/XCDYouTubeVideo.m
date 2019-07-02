@@ -31,6 +31,23 @@ NSString *XCDHTTPLiveStreamingStringWithString(NSString *string)
 	return manifestURL;
 }
 
+NSArray <NSDictionary *> *XCDThumnailArrayWithString(NSString *string)
+{
+	NSError *error = nil;
+	NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+	if (!data) { return nil; }
+	NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&error];
+	
+	if (error) { return nil; }
+	
+	NSDictionary *videoDetails = JSON[@"videoDetails"];
+	NSDictionary *thumbnail = videoDetails[@"thumbnail"];
+	NSArray *thumbnails = thumbnail[@"thumbnails"];
+	
+	if (thumbnails.count == 0 || thumbnails == nil)  { return nil; }
+	return thumbnails;
+}
+
 NSArray <NSDictionary *> *XCDCaptionArrayWithString(NSString *string)
 {
 	NSError *error = nil;
@@ -155,6 +172,14 @@ static NSDate * ExpirationDate(NSURL *streamURL)
 		NSString *thumbnail = info[@"thumbnail_url"] ?: info[@"iurl"];
 		_thumbnailURL = thumbnail ? [NSURL URLWithString:thumbnail] : nil;
 		
+		if (!_thumbnailURL) {
+			NSArray <NSDictionary *>*thumnails = XCDThumnailArrayWithString(playerResponse);
+			if (thumnails.count >= 1) {
+				NSString *thumbnailURLString = thumnails[0][@"url"];
+				_thumbnailURL = thumbnailURLString ? [NSURL URLWithString:thumbnailURLString] : nil;
+			}
+		}
+		
 		NSMutableDictionary *streamURLs = [NSMutableDictionary new];
 		
 		if (httpLiveStream)
@@ -207,6 +232,8 @@ static NSDate * ExpirationDate(NSURL *streamURL)
 			NSDictionary *stream = XCDDictionaryWithQueryString(streamQuery);
 			
 			NSString *scrambledSignature = stream[@"s"];
+			NSString *spParam = stream[@"sp"];
+			
 			if (scrambledSignature && !playerScript)
 			{
 				userInfo[XCDYouTubeNoStreamVideoUserInfoKey] = self;
@@ -230,7 +257,15 @@ static NSDate * ExpirationDate(NSURL *streamURL)
 				if (signature)
 				{
 					NSString *escapedSignature = [signature stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-					streamURL = URLBySettingParameter(streamURL, @"signature", escapedSignature);
+					
+					if (spParam.length > 0)
+					{
+						streamURL = URLBySettingParameter(streamURL, spParam, escapedSignature);
+						
+					} else
+					{
+						streamURL = URLBySettingParameter(streamURL, @"signature", escapedSignature);
+					}
 				}
 				
 				streamURLs[@(itag.integerValue)] = URLBySettingParameter(streamURL, @"ratebypass", @"yes");
