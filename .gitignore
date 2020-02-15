@@ -2,3 +2,7 @@ XCDYouTubeKit.xcodeproj/xcuserdata/
 XCDYouTubeKit.xcodeproj/xcshareddata/
 XcodeCoverage
 RELEASE_NOTES.md
+.DS_Store
+*.xcuserstate
+xcuserdata/
+/release.sh

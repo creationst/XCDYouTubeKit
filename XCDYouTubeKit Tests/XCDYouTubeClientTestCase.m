@@ -103,6 +103,7 @@
 	{
 		XCTAssertNil(error);
 		XCTAssertNotNil(video.title);
+		XCTAssertTrue(video.viewCount > 0);
 		XCTAssertNotNil(video.expirationDate);
 		XCTAssertNotNil(video.thumbnailURL);
 		XCTAssertTrue(video.streamURLs.count > 0);
@@ -122,6 +123,7 @@
 	{
 		XCTAssertNil(error);
 		XCTAssertNotNil(video.title);
+		XCTAssertTrue(video.viewCount > 0);
 		XCTAssertNotNil(video.thumbnailURL);
 		XCTAssertNotNil(video.streamURLs[XCDYouTubeVideoQualityHTTPLiveStreaming]);
 		[expectation fulfill];
@@ -138,6 +140,7 @@
 	 {
 		 XCTAssertNil(error);
 		 XCTAssertNotNil(video.title);
+		 XCTAssertTrue(video.viewCount > 0);
 		 XCTAssertNotNil(video.thumbnailURL);
 		 XCTAssertTrue(video.streamURLs.count > 0);
 		 XCTAssertTrue(video.duration > 0);
@@ -158,6 +161,7 @@
 	{
 		XCTAssertNil(error);
 		XCTAssertNotNil(video.title);
+		XCTAssertTrue(video.viewCount > 0);
 		XCTAssertNotNil(video.expirationDate);
 		XCTAssertNotNil(video.thumbnailURL);
 		XCTAssertTrue(video.streamURLs.count > 0);
@@ -180,7 +184,7 @@
 	[[XCDYouTubeClient defaultClient] getVideoWithIdentifier:@"i2-MnWWoL6M" completionHandler:^(XCDYouTubeVideo *video, NSError *error) {
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"This live stream recording is not available.");
 		[expectation fulfill];
 	}];
@@ -196,7 +200,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"This video is no longer available because the YouTube account associated with this video has been terminated.");
 		[expectation fulfill];
 	}];
@@ -213,8 +217,8 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
-		XCTAssertEqualObjects(error.localizedDescription, @"\"9/11 The F...\" is no longer available due to a copyright claim by Digital Rights Group Ltd.");
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
+		XCTAssertEqualObjects(error.localizedDescription, @"This video has been removed for violating YouTube's Terms of Service.");
 		[expectation fulfill];
 	}];
 	[self waitForExpectationsWithTimeout:5 handler:nil];
@@ -227,7 +231,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"The uploader has not made this video available in your country.");
 		[expectation fulfill];
 	}];
@@ -241,7 +245,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorInvalidVideoIdentifier);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"Invalid parameters.");
 		[expectation fulfill];
 	}];
@@ -255,7 +259,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"This video is unavailable.");
 		[expectation fulfill];
 	}];
@@ -269,7 +273,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorRestrictedPlayback);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"Cette vidéo n'est pas disponible.");
 		[expectation fulfill];
 	}];
@@ -283,7 +287,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorInvalidVideoIdentifier);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"Invalid parameters.");
 		[expectation fulfill];
 	}];
@@ -297,7 +301,7 @@
 	{
 		XCTAssertNil(video);
 		XCTAssertEqualObjects(error.domain, XCDYouTubeVideoErrorDomain);
-		XCTAssertEqual(error.code, XCDYouTubeErrorInvalidVideoIdentifier);
+		XCTAssertEqual(error.code, XCDYouTubeErrorNoStreamAvailable);
 		XCTAssertEqualObjects(error.localizedDescription, @"Invalid parameters.");
 		[expectation fulfill];
 	}];
